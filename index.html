@@ -16,13 +16,25 @@
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Hero Section - cosa vede subito su mobile */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -3;
+            pointer-events: none;
+        }
+
         .hero {
             height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(106, 13, 173, 0.6), rgba(106, 13, 173, 0.6)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(106, 13, 173, 0.6)), 
                         url('urbs.png');
             background-size: cover;
             background-position: center;
@@ -87,11 +99,69 @@
             60% {transform: translateX(-50%) translateY(-10px);}
         }
 
-        /* Sezioni generali */
+        .section-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto 40px;
+            overflow: hidden;
+        }
+
+        .section-with-towers {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 500px;
+        }
+
+        .tower-left, .tower-right {
+            position: absolute;
+            width: 100vw;
+            height: auto;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tower-left {
+            left: 0;
+            top: 0;
+            transform: translateX(-35%) rotate(90deg);
+            transform-origin: left center;
+        }
+
+        .tower-right {
+            right: 0;
+            top: 0;
+            transform: translateX(35%) rotate(-90deg);
+            transform-origin: right center;
+        }
+
+        .tower-left img, .tower-right img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(155, 89, 182, 0.5));
+        }
+
+        .tower-left:hover, .tower-right:hover {
+            opacity: 0.7;
+        }
+
         .section {
-            padding: 80px 20px;
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
         }
 
         .section-title {
@@ -117,10 +187,11 @@
 
         .section-content {
             font-size: 1.2rem;
-            color: #444;
+            color: #222;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
+            font-weight: 500;
         }
 
         .section-content p {
@@ -128,7 +199,6 @@
             line-height: 1.8;
         }
 
-        /* Sezione 2 - Proposte (più strutturata) */
         .proposte-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -137,17 +207,19 @@
         }
 
         .categoria {
-            background: #f8f8f8;
+            background: rgba(248, 248, 248, 0.8);
+            backdrop-filter: blur(4px);
             padding: 30px 20px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             transition: transform 0.3s;
             border-bottom: 3px solid #9b59b6;
         }
 
         .categoria:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.2);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.25);
+            background: rgba(248, 248, 248, 0.9);
         }
 
         .categoria h3 {
@@ -176,70 +248,160 @@
             color: #d2b4de;
         }
 
-        /* Sezione 3 - Appello */
-        .appello {
-            background: linear-gradient(135deg, #6a0dad 0%, #9b59b6 100%);
-            color: white;
-            padding: 100px 20px;
+        .bottom-section {
+            position: relative;
+            width: 100%;
             margin-top: 40px;
+            color: white;
+            overflow: hidden;
+        }
+
+        .bottom-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('urbs.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transform: rotate(180deg) scaleX(-1);
+            z-index: -2;
+        }
+
+        .appello {
+            position: relative;
+            padding: 180px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%);
         }
 
         .appello-content {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 50px;
         }
 
         .appello h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
+            font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+            font-weight: 900;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .appello h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4d4d, #990000);
         }
 
         .appello p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
+            font-size: 1.4rem;
+            margin-bottom: 35px;
             line-height: 1.8;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+
+        .appello p:last-of-type {
+            font-size: 1.65rem;
+            font-weight: bold;
+            margin-bottom: 45px;
         }
 
         .cta-button {
             display: inline-block;
             background: white;
-            color: #6a0dad;
-            padding: 15px 40px;
-            font-size: 1.3rem;
+            color: #b30000;
+            padding: 18px 60px;
+            font-size: 1.45rem;
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: none;
             border-radius: 50px;
-            margin-top: 30px;
             transition: all 0.3s;
             border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
         }
 
         .cta-button:hover {
             background: transparent;
             color: white;
+            transform: scale(1.05);
         }
 
-        /* Footer */
-        footer {
-            background: black;
+        .bottom-section footer {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: white;
             text-align: center;
-            padding: 30px;
-            font-size: 0.9rem;
+            padding: 70px 30px;
+            font-size: 1rem;
+            border-top: 3px solid rgba(180, 0, 0, 0.5);
+            position: relative;
         }
         
-        footer p:first-child {
-            color: #d2b4de;
+        .bottom-section footer p:first-child {
+            color: #ff3333;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
-        /* Responsive fine-tuning */
+        .bottom-section footer p:nth-child(2) {
+            color: #ffffff;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+        }
+
+        .bottom-section footer p:last-child {
+            color: #ffb3b3;
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        @media (max-width: 1024px) {
+            .tower-left {
+                transform: translateX(-40%) rotate(90deg);
+            }
+            .tower-right {
+                transform: translateX(40%) rotate(-90deg);
+            }
+        }
+
         @media (max-width: 768px) {
+            .tower-left {
+                transform: translateX(-45%) rotate(90deg);
+            }
+            .tower-right {
+                transform: translateX(45%) rotate(-90deg);
+            }
+            
             .section {
-                padding: 60px 15px;
+                width: 95%;
+                padding: 40px 20px;
             }
             
             .proposte-grid {
@@ -249,11 +411,35 @@
             .hero h1 {
                 letter-spacing: 1px;
             }
+            
+            .appello {
+                padding: 100px 15px;
+            }
+            
+            .appello p:last-of-type {
+                font-size: 1.4rem;
+            }
+            
+            .appello-content {
+                padding: 30px 15px;
+            }
+            
+            .cta-button {
+                padding: 14px 40px;
+                font-size: 1.2rem;
+            }
+            
+            .bottom-section footer {
+                padding: 50px 20px;
+            }
+            
+            .bottom-section footer p:first-child {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section - PRIMA COSA CHE SI VEDE SU MOBILE -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>URBINO<br>L'ESIGENZA DI UNO SPAZIO SOCIALE AUTOGESTITO</h1>
@@ -264,89 +450,106 @@
         </div>
     </section>
 
-    <!-- Sezione 1: PERCHÉ UNO SPAZIO SOCIALE? -->
-    <section class="section" id="perche">
-        <h2 class="section-title">PERCHÉ UNO SPAZIO SOCIALE?</h2>
-        <div class="section-content">
-            <p>Chiediamo un luogo per integrare nella vita urbinate e dare spazio a tutte le iniziative che non ne hanno.</p>
-            <p>Per dare un'alternativa ai giovani che a Urbino trovano solo realtà commerciali e nessun intrattenimento stimolante per la crescita culturale della nostra generazione.</p>
-            <p>Per i cittadini e gli universitari, per creare una comunità più unita.</p>
-            <p><strong>Non cerchiamo compromessi, ma un vero laboratorio di idee, un presidio di cultura dal basso: uno spazio sociale, politicizzato, libero, gratuito ed accessibile.</strong></p>
-            <p>Un'alternativa alla mercificazione del tempo libero, libero dalle logiche del profitto.</p>
-        </div>
-    </section>
-
-    <!-- Sezione 2: PROPOSTE E NECESSITÀ -->
-    <section class="section" id="proposte">
-        <h2 class="section-title">PROPOSTE E NECESSITÀ</h2>
-        <div class="section-content">
-            <p style="font-size: 1.3rem; font-weight: bold; margin-bottom: 40px;">Chiediamo questo spazio per proporre:</p>
-        </div>
-        
-        <div class="proposte-grid">
-            <div class="categoria">
-                <h3>Attività Culturali</h3>
-                <ul>
-                    <li>Cineforum</li>
-                    <li>Concerti</li>
-                    <li>Mostre</li>
-                    <li>Workshop</li>
-                    <li>Lezioni</li>
-                </ul>
+    <div class="section-container">
+        <div class="section-with-towers">
+            <div class="tower-left">
+                <img src="torricini.png" alt="Torricini Urbino">
             </div>
-            
-            <div class="categoria">
-                <h3>Supporto e Istruzione</h3>
-                <ul>
-                    <li>Doposcuola</li>
-                    <li>Biblioteca e aula studio</li>
-                    <li>Lavoro in compagnia</li>
-                </ul>
-            </div>
-            
-            <div class="categoria">
-                <h3>Socialità e Condivisione</h3>
-                <ul>
-                    <li>Mensa popolare</li>
-                    <li>Laboratori artistici</li>
-                    <li>Attività sportive</li>
-                </ul>
-            </div>
-            
-            <div class="categoria">
-                <h3>Musica e Creatività</h3>
-                <ul>
-                    <li>Sala prove e studio musicale</li>
-                    <li>Performance</li>
-                </ul>
+            <section class="section" id="perche">
+                <h2 class="section-title">PERCHÉ UNO SPAZIO SOCIALE?</h2>
+                <div class="section-content">
+                    <p>Chiediamo un luogo per integrare nella vita urbinate e dare spazio a tutte le iniziative che non ne hanno.</p>
+                    <p>Per dare un'alternativa ai giovani che a Urbino trovano solo realtà commerciali e nessun intrattenimento stimolante per la crescita culturale della nostra generazione.</p>
+                    <p>Per i cittadini e gli universitari, per creare una comunità più unita.</p>
+                    <p><strong>Non cerchiamo compromessi, ma un vero laboratorio di idee, un presidio di cultura dal basso: uno spazio sociale, politicizzato, libero, gratuito ed accessibile.</strong></p>
+                    <p>Un'alternativa alla mercificazione del tempo libero, libero dalle logiche del profitto.</p>
+                </div>
+            </section>
+            <div class="tower-right">
+                <img src="torricini2.png" alt="Torricini Urbino">
             </div>
         </div>
-        
-        <div class="section-content" style="margin-top: 50px;">
-            <p><strong>Tutto in maniera gratuita e autogestita.</strong> Necessitiamo di un luogo ben collegato, con la possibilità di realizzare più attività in contemporanea. Non cerchiamo uno spazio finito, ma ci proponiamo per la restaurazione di un futuro luogo per la comunità.</p>
-            <p style="margin-top: 20px;">Chiediamo il riconoscimento del valore dell'autogestione come strumento di responsabilità e partecipazione attiva.</p>
+    </div>
+
+    <div class="section-container">
+        <div class="section-with-towers">
+            <div class="tower-left">
+                <img src="torricini.png" alt="Torricini Urbino">
+            </div>
+            <section class="section" id="proposte">
+                <h2 class="section-title">PROPOSTE E NECESSITÀ</h2>
+                <div class="section-content">
+                    <p style="font-size: 1.3rem; font-weight: bold; margin-bottom: 40px;">Chiediamo questo spazio per proporre:</p>
+                </div>
+                
+                <div class="proposte-grid">
+                    <div class="categoria">
+                        <h3>Attività Culturali</h3>
+                        <ul>
+                            <li>Cineforum</li>
+                            <li>Concerti</li>
+                            <li>Mostre</li>
+                            <li>Workshop</li>
+                            <li>Lezioni</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="categoria">
+                        <h3>Supporto e Istruzione</h3>
+                        <ul>
+                            <li>Doposcuola</li>
+                            <li>Biblioteca e aula studio</li>
+                            <li>Lavoro in compagnia</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="categoria">
+                        <h3>Socialità e Condivisione</h3>
+                        <ul>
+                            <li>Mensa popolare</li>
+                            <li>Laboratori artistici</li>
+                            <li>Attività sportive</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="categoria">
+                        <h3>Musica e Creatività</h3>
+                        <ul>
+                            <li>Sala prove e studio musicale</li>
+                            <li>Performance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-content" style="margin-top: 50px;">
+                    <p><strong>Tutto in maniera gratuita e autogestita.</strong> Necessitiamo di un luogo ben collegato, con la possibilità di realizzare più attività in contemporanea. Non cerchiamo uno spazio finito, ma ci proponiamo per la restaurazione di un futuro luogo per la comunità.</p>
+                    <p style="margin-top: 20px;">Chiediamo il riconoscimento del valore dell'autogestione come strumento di responsabilità e partecipazione attiva.</p>
+                </div>
+            </section>
+            <div class="tower-right">
+                <img src="torricini2.png" alt="Torricini Urbino">
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Sezione 3: APPELLO ALLA MOBILITAZIONE (con sfondo) -->
-    <section class="appello" id="appello">
-        <div class="appello-content">
-            <h2>APPELLO ALLA MOBILITAZIONE</h2>
-            <p>Questo comunicato è il primo passo di un percorso di rivendicazione che coinvolgerà l'intera cittadinanza.</p>
-            <p style="font-size: 1.5rem; font-weight: bold;">Invitiamo tutti i giovani, gli studenti e chiunque creda nel valore della socialità non commerciale a unirsi a noi nelle prossime iniziative e assemblee pubbliche.</p>
-            <a href="#" class="cta-button">Partecipa anche tu</a>
-        </div>
-    </section>
+    <div class="bottom-section">
+        <section class="appello" id="appello">
+            <div class="appello-content">
+                <h2>APPELLO ALLA MOBILITAZIONE</h2>
+                <p>Questo comunicato è il primo passo di un percorso di rivendicazione che coinvolgerà l'intera cittadinanza.</p>
+                <p>Invitiamo tutti i giovani, gli studenti e chiunque creda nel valore della socialità non commerciale a unirsi a noi nelle prossime iniziative e assemblee pubbliche.</p>
+                <a href="#" class="cta-button">Partecipa anche tu</a>
+            </div>
+        </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>URBINO - L'ESIGENZA DI UNO SPAZIO SOCIALE AUTOGESTITO</p>
-        <p style="margin-top: 10px; color: #888;">Un percorso di rivendicazione per la città • 2025</p>
-    </footer>
+        <footer>
+            <p>URBINO - L'ESIGENZA DI UNO SPAZIO SOCIALE AUTOGESTITO</p>
+            <p>Un percorso di rivendicazione per la città • 2025</p>
+            <p>Contattaci: spazio.sociale.urbino@autistici.org</p>
+        </footer>
+    </div>
 
-    <!-- Smooth scroll per i link -->
     <script>
-        // Scroll fluido per tutti i link
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -356,7 +559,6 @@
             });
         });
         
-        // Rendere lo scroll-down cliccabile
         document.querySelector('.scroll-down').addEventListener('click', function() {
             document.getElementById('perche').scrollIntoView({behavior: 'smooth'});
         });
