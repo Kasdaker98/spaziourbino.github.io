@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* Sfondo fisso con torricini2.png - ORA SCURO E BLURRATO */
         body::before {
             content: "";
             position: fixed;
@@ -38,7 +37,6 @@
             animation: bodyPulse 4s infinite alternate ease-in-out;
         }
 
-        /* Overlay scuro per mantenere leggibilità */
         body::after {
             content: "";
             position: fixed;
@@ -119,7 +117,6 @@
             60% {transform: translateX(-50%) translateY(-10px);}
         }
 
-        /* GESTIONE MARGINI SELETTIVA */
         .section-container {
             position: relative;
             width: 100%;
@@ -179,7 +176,6 @@
             opacity: 0.7;
         }
 
-        /* Sezioni principali - STILE AUTOGESTITO */
         .section {
             width: 90%;
             max-width: 1200px;
@@ -203,7 +199,6 @@
             box-shadow: 0 20px 40px rgba(155, 89, 182, 0.4);
         }
 
-        /* Sfondo animato con torricini1.png - EFFETTO PULSANTE RADIALE */
         .section::before {
             content: "";
             position: absolute;
@@ -222,7 +217,6 @@
             transform-origin: center center;
         }
 
-        /* Secondo layer per effetto profondità radiale */
         .section::after {
             content: "";
             position: absolute;
@@ -242,7 +236,6 @@
             transform-origin: center center;
         }
 
-        /* Animazioni radiali */
         @keyframes radialPulse {
             0% {
                 transform: scale(1) translateX(0) translateY(0);
@@ -288,7 +281,6 @@
             }
         }
 
-        /* Animazione per il body background */
         @keyframes bodyPulse {
             0% {
                 filter: brightness(0) blur(50px);
@@ -351,7 +343,6 @@
             font-weight: 700;
         }
 
-        /* CARD CON MENU A TENDINA */
         .proposte-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -374,7 +365,6 @@
             min-height: 100px;
         }
 
-        /* Hover SOLO quando nessuna card è attiva */
         body:not(.card-active) .categoria-card:hover {
             border-left-color: #d2b4de;
             border-bottom-color: #d2b4de;
@@ -410,7 +400,6 @@
             pointer-events: none;
         }
 
-        /* Indicatore visivo che si può cliccare */
         .categoria-header::after {
             content: "▼";
             display: block;
@@ -689,7 +678,6 @@
         </div>
     </section>
 
-    <!-- Prima sezione: PERCHÉ -->
     <div class="section-container">
         <div class="section-with-towers">
             <div class="tower-left">
@@ -711,7 +699,6 @@
         </div>
     </div>
 
-    <!-- Seconda sezione: PROPOSTE CON MENU A TENDINA -->
     <div class="section-container">
         <div class="section-with-towers">
             <div class="tower-left">
@@ -723,9 +710,7 @@
                     <p style="font-size: 1.3rem; font-weight: bold; margin-bottom: 40px;">Chiediamo questo spazio per proporre:</p>
                 </div>
                 
-                <!-- Grid 2x2 con menu a tendina -->
                 <div class="proposte-grid">
-                    <!-- Attività Culturali -->
                     <div class="categoria-card" id="card-culturale">
                         <div class="categoria-header">
                             <h3>Attività Culturali</h3>
@@ -741,7 +726,6 @@
                         </div>
                     </div>
                     
-                    <!-- Supporto e Istruzione -->
                     <div class="categoria-card" id="card-supporto">
                         <div class="categoria-header">
                             <h3>Supporto e Istruzione</h3>
@@ -755,7 +739,6 @@
                         </div>
                     </div>
                     
-                    <!-- Socialità e Condivisione -->
                     <div class="categoria-card" id="card-sociale">
                         <div class="categoria-header">
                             <h3>Socialità e Condivisione</h3>
@@ -769,7 +752,6 @@
                         </div>
                     </div>
                     
-                    <!-- Musica e Creatività -->
                     <div class="categoria-card" id="card-musica">
                         <div class="categoria-header">
                             <h3>Musica e Creatività</h3>
@@ -794,7 +776,6 @@
         </div>
     </div>
 
-    <!-- Sezione appello -->
     <div class="bottom-section">
         <section class="appello" id="appello">
             <div class="appello-content">
@@ -812,17 +793,14 @@
     </div>
 
     <script>
-        // Gestione click per mobile e desktop
         document.querySelectorAll('.categoria-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 const isActive = this.classList.contains('active');
                 
-                // Chiudi tutte le card
                 document.querySelectorAll('.categoria-card').forEach(c => {
                     c.classList.remove('active');
                 });
                 
-                // Se non era attiva, apri questa (altrimenti resta tutto chiuso)
                 if (!isActive) {
                     this.classList.add('active');
                     document.body.classList.add('card-active');
@@ -834,7 +812,6 @@
             });
         });
 
-        // Rimuovi card-active quando si clicca fuori (opzionale)
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.categoria-card')) {
                 document.querySelectorAll('.categoria-card').forEach(c => {
